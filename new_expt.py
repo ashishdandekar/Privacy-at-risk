@@ -97,31 +97,6 @@ def sensitivity_ridge(data, runs):
     result = {"confidence": confidence, "utility_global": utility_global, "utility": non_private_accuracy}
     pickle.dump(result, open("new_ridge_utility.pickle", "wb"))
 
-    # mean_global = np.array([np.mean(utility_global[e]) for e in epsilons])
-    # std_global = np.array([np.std(utility_global[e]) for e in epsilons])
-
-    # fig, ax1 = plt.subplots()
-
-    # color = "tab:blue"
-    # ax1.set_xlabel('Privacy at Risk level ($\epsilon$)')
-    # ax1.set_ylabel('Confidence level ($\gamma_3$)', color = color)
-    # ax1.plot(epsilons, confidence)
-    # ax1.tick_params(axis = 'y', labelcolor = color)
-
-    # ax2 = ax1.twinx()
-
-    # color = "tab:red"
-    # ax2.set_ylabel("RMSE", color = color)
-    # ax2.plot(epsilons, mean_global, label = "Sensitivity", linestyle = '--', color = "red")
-    # ax2.fill_between(epsilons, mean_global - std_global, mean_global + std_global, color = "red", alpha = 0.4)
-    # ax2.tick_params(axis = 'y', labelcolor = color)
-    # ax2.legend()
-
-    # fig.tight_layout()
-    # # plt.savefig("utility_ridge.png", bbox_inches = "tight")
-    # plt.show()
-
-
 def make_plot():
     result = pickle.load(open("new_ridge_utility.pickle", "rb"))
     utility_global = result['utility_global']
@@ -152,11 +127,11 @@ def make_plot():
     ax2.legend()
 
     fig.tight_layout()
-    # plt.savefig("utility_ridge.png", bbox_inches = "tight")
-    plt.show()
+    plt.savefig("utility_ridge.png", bbox_inches = "tight")
+#     plt.show()
 
 if __name__ == "__main__":
-    data_orig = pd.read_csv("small_dataset.csv")
+    data_orig = pd.read_csv("census_dataset.csv")
     del data_orig['ID']
 
     data = data_orig[data_orig['INCWAGE'] != 0]
