@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpmath import *
+from formulae import *
 import functools
 from sklearn.svm import SVC
 from collections import defaultdict
@@ -10,46 +11,6 @@ from multiprocessing import Process
 from sklearn.preprocessing import normalize
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Ridge, LogisticRegression
-
-def regularizedHyper(a, b, z):
-    '''
-            This is a helper function.
-    '''
-    return hyper(a, b, z) / functools.reduce(lambda x, y: x * y, map(gamma, b))
-
-def integral(x, n):
-    '''
-            This is a helper function.
-    '''
-    term1 = (np.pi ** 0.5) * (4 ** n) * x *regularizedHyper([0.5], [1.5-n, 1.5], (x**2)/4)
-    term2 = 2 * (x ** (2 *n)) * gamma(n) * regularizedHyper([n], [n+0.5, n+1], (x**2)/4)
-    return term1 - term2
-
-def bound(e1, e2, n):
-    '''
-            This function computes $\gamma_1$ for the specified values of
-            epsilon_1 and epsilon_2. $n$ denotes the dimension of the output
-            of the Laplace mechnaism. For scalar output, choose $n = 1$.
-    '''
-    return integral(e1, n) / integral(e2, n)
-
-def calculate_gamma(e1, e2, rho, delta, alpha, n):
-    '''
-            This function computes $\gamma_3$.
-            rho: tolerance parameter
-            delta: sampled sensitivity
-            alpha: accuracy parameter
-    '''
-    eta = 1. + 2 * (rho / delta)
-    return (integral(e1, n) / integral(e2*eta, n)) * alpha
-
-def calculate_nsamples(rho, alpha):
-    '''
-            This function returns the number samples required
-            to meet the accuracy requirement $\alpha$ and
-            the tolerance parameter $\rho$
-    '''
-    return (1. / (2 * (rho**2))) * np.log(2. / (1 - alpha))
 
 def L1(x, y):
     return sum(abs(x - y))
@@ -84,7 +45,6 @@ def sensitivity_ridge(data, runs):
     orig_coef = model.coef_
     non_private_accuracy = (sum((model.predict(xtest) - ytest) ** 2) / len(test)) ** 0.5
     print("Ridge fit: ", non_private_accuracy)
-    # print("Ridge fit: ", (sum((model.predict(xtest) - ytest) ** 2) / len(test)) ** 0.5)
 
     confidence = []
     utility_global = defaultdict(list)
