@@ -1,5 +1,5 @@
 from formulae import *
-from compositions import *
+from composition import *
 
 '''
     sudo apt-get install texlive-latex-recommended
