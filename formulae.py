@@ -1,5 +1,6 @@
 import numpy as np
 from mpmath import *
+from functools import reduce
 
 def regularizedHyper(a, b, z):
 	'''
