@@ -3,7 +3,6 @@ import pickle
 import numpy as np
 import multiprocessing as mp
 from sklearn import svm
-from utilities import *
 from sklearn.linear_model import LogisticRegression
 
 N_TEACHERS = 50
