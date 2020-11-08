@@ -88,7 +88,6 @@ def make_plot():
 
     fig.tight_layout()
     plt.savefig("utility_ridge.png", bbox_inches = "tight")
-#     plt.show()
 
 if __name__ == "__main__":
     data_orig = pd.read_csv("census_dataset.csv")

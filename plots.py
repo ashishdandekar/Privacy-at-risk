@@ -2,18 +2,22 @@ from formulae import *
 from composition import *
 
 '''
+    Uncomment following four lines follwowing this comment
+    in order to have Type1 family fonts in the generated plots.
+    One requires following packages:
     sudo apt-get install texlive-latex-recommended
     sudo apt install texlive-latex-extra
     sudo apt install dvipng
     sudo apt install texlive-fonts-recommended texlive-fonts-extra cm-super
 
     despite this you need to install type1cm.sty separately
+
 '''
 
-plt.rcParams['text.usetex'] = True #Let TeX do the typsetting
-plt.rcParams['text.latex.preamble'] = [r'\usepackage{sansmath}', r'\sansmath'] #Force sans-serif math mode (for axes labels)
-plt.rcParams['font.family'] = 'sans-serif' # ... for regular text
-plt.rcParams['font.sans-serif'] = 'Helvetica' # Choose a nice font here
+# plt.rcParams['text.usetex'] = True #Let TeX do the typsetting
+# plt.rcParams['text.latex.preamble'] = [r'\usepackage{sansmath}', r'\sansmath'] #Force sans-serif math mode (for axes labels)
+# plt.rcParams['font.family'] = 'sans-serif' # ... for regular text
+# plt.rcParams['font.sans-serif'] = 'Helvetica' # Choose a nice font here
 
 eps = np.linspace(0, 1)
 
@@ -80,7 +84,7 @@ ks = range(1, 300)
 eps0s = [0.1, 0.5, 1.0]
 opt_eps = []
 for eps0 in eps0s:
-    opt_eps.append(optimize.newton(best_eps_cost, 0.002, args = (eps0,)))
+    opt_eps.append(optimize.newton(best_eps, 0.002, args = (eps0,)))
 for i, eps_0 in enumerate(eps0s):
     plt.clf()
     plt.plot(ks, [eps_0 * k for k in ks], label = "Basic Composition[10]")
