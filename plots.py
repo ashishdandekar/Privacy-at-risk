@@ -21,6 +21,13 @@ from composition import *
 
 eps = np.linspace(0, 1)
 
+##
+# Uncomment the code blocks to generate the respective plots
+##
+
+##
+# Following code block generates Fig 1b in the paper
+##
 # plt.clf()
 # for i in [1.0, 1.5, 2.0, 2.5]:
 #     plt.plot([1 - bound(e, i, 1.0) for e in eps], eps, label = "$\epsilon_0$=%.1f"%i)
@@ -29,6 +36,9 @@ eps = np.linspace(0, 1)
 # plt.ylabel("Privacy level ($\epsilon$)")
 # plt.savefig("single.eps", bbox_inches = "tight", figsize=(15,15))
 
+##
+# Following code block generates Fig 1a in the paper
+##
 # plt.clf()
 # for k in [1., 2., 3.]:
 #     plt.plot([1 - bound(e, 1.0, k) for e in eps], eps, label = "$k$=%d"%k)
@@ -37,6 +47,9 @@ eps = np.linspace(0, 1)
 # plt.ylabel("Privacy level ($\epsilon$)")
 # plt.savefig("general.eps", bbox_inches = "tight", figsize=(15,15))
 
+##
+# Following code block generates Fig 2 in the paper
+##
 # gammas = np.linspace(0, 1)
 # plt.clf()
 # for i in [0.0001, 0.001, 0.01, 0.1]:
@@ -47,6 +60,9 @@ eps = np.linspace(0, 1)
 # plt.ylabel("Sample size ($n$)")
 # plt.savefig("sample_size.eps", bbox_inches = "tight", figsize=(15,15))
 
+##
+# Following code block generates Fig 3a in the paper
+##
 # plt.clf()
 # for r in [0.01, 0.012, 0.015, 0.02]:
 #     alpha = 1. - (2 * np.exp(-2 * (r**2) * 10000))
@@ -55,7 +71,10 @@ eps = np.linspace(0, 1)
 # plt.xlabel("Privacy at Risk ($\gamma_3$)")
 # plt.ylabel("Privacy level ($\epsilon$)")
 # plt.savefig("rho_dep.eps", bbox_inches = "tight", figsize=(15,15))
-# 
+
+##
+# Following code block generates Fig 3b in the paper
+##
 # plt.clf()
 # for n in [10000, 15000, 20000, 25000]:
 #     alpha = 1. - (2 * np.exp(-2 * (0.01**2) * n))
@@ -65,6 +84,9 @@ eps = np.linspace(0, 1)
 # plt.ylabel("Privacy level ($\epsilon$)")
 # plt.savefig("sample_dep.eps", bbox_inches = "tight", figsize=(15,15))
 
+##
+# Following code block generates Fig 4 in the paper
+##
 # B = 5500 * 100
 # dp_bud = lambda e: B * np.exp(-1. / e)
 # 
@@ -80,21 +102,24 @@ eps = np.linspace(0, 1)
 # plt.ylabel("$B_{par}$ (in dollars)")
 # plt.savefig("b_par.eps", bbox_inches = "tight", figsize=(15,15))
 
-ks = range(1, 300)
-eps0s = [0.1, 0.5, 1.0]
-opt_eps = []
-for eps0 in eps0s:
-    opt_eps.append(optimize.newton(best_eps, 0.002, args = (eps0,)))
-for i, eps_0 in enumerate(eps0s):
-    plt.clf()
-    plt.plot(ks, [eps_0 * k for k in ks], label = "Basic Composition[10]")
-    plt.plot(ks, [composition(eps_0, k, "azuma") for k in ks], label = "Advanced Composition[10]")
-    # plt.plot(ks, [composition(eps_0, k, "bernstein") for k in ks], label = "advanced_bernstein")
-    # plt.plot(ks, [composition(eps_0, k, "hoeffding") for k in ks], label = "advanced_hoeffding")
-    plt.plot(ks, [composition_par(eps_0, opt_eps[i], k) for k in ks], label = "Composition with Privacy at Risk")
-    plt.legend()
-    plt.xlabel("Number of compositions ($n$)")
-    plt.ylabel("Privacy level after composition ($\epsilon'$)")
-    plt.title("Advanced composition for $\epsilon_0 = %0.2f, \delta=10^{-5}$" % eps_0)
-    plt.savefig("advanced_%d.eps" % i, bbox_inches = "tight", figsize=(15,15))
-    # plt.show()
+##
+# Following code block generates Fig 5 in the paper
+##
+# ks = range(1, 300)
+# eps0s = [0.1, 0.5, 1.0]
+# opt_eps = []
+# for eps0 in eps0s:
+#     opt_eps.append(optimize.newton(best_eps, 0.002, args = (eps0,)))
+# for i, eps_0 in enumerate(eps0s):
+#     plt.clf()
+#     plt.plot(ks, [eps_0 * k for k in ks], label = "Basic Composition[10]")
+#     plt.plot(ks, [composition(eps_0, k, "azuma") for k in ks], label = "Advanced Composition[10]")
+#     # plt.plot(ks, [composition(eps_0, k, "bernstein") for k in ks], label = "advanced_bernstein")
+#     # plt.plot(ks, [composition(eps_0, k, "hoeffding") for k in ks], label = "advanced_hoeffding")
+#     plt.plot(ks, [composition_par(eps_0, opt_eps[i], k) for k in ks], label = "Composition with Privacy at Risk")
+#     plt.legend()
+#     plt.xlabel("Number of compositions ($n$)")
+#     plt.ylabel("Privacy level after composition ($\epsilon'$)")
+#     plt.title("Advanced composition for $\epsilon_0 = %0.2f, \delta=10^{-5}$" % eps_0)
+#     plt.savefig("advanced_%d.eps" % i, bbox_inches = "tight", figsize=(15,15))
+#     # plt.show()
